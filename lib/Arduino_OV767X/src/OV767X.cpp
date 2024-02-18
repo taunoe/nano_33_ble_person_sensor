@@ -65,7 +65,7 @@ OV767X::~OV767X()
   }
 }
 
-int OV767X::begin(int resolution, int format, int fps, int camera_name)
+int OV767X::begin(int resolution, int format, int fps)
 {
   switch (resolution) {
     case VGA:
@@ -154,8 +154,8 @@ int OV767X::begin(int resolution, int format, int fps, int camera_name)
     return 0;
   }
 
-  ov7670_configure(_ov7670, camera_name /*OV7670 = 0, OV7675 = 1*/, format, resolution, 
-                    16 /* MHz */, 0 /*pll bypass*/, 1 /* pclk_hb_disable */);
+  ov7670_configure(_ov7670, 0 /*OV7670 = 0, OV7675 = 1*/, format, resolution, 16 /* MHz */, 
+                    0 /*pll bypass*/, 1 /* pclk_hb_disable */);
 
   if (ov7670_s_power(_ov7670, 1)) {
     end();
@@ -198,27 +198,19 @@ int OV767X::height() const
 
 int OV767X::bitsPerPixel() const
 {
-  if (_grayscale) {
-    return 8;
-  } else {
-    return _bytesPerPixel * 8;
-  }
+  return _bytesPerPixel * 8;
 }
 
 int OV767X::bytesPerPixel() const
 {
-  if (_grayscale) {
-    return 1;
-  } else {
-    return _bytesPerPixel;
-  }
+  return _bytesPerPixel;
 }
 
 //
 // Optimized Data Reading Explanation:
 //
 // In order to keep up with the data rate of 5 FPS, the inner loop that reads
-// data from the camera board needs to be as quick as possible. The 64 Mhz ARM
+// data from the camera board needs to be as quick as possible. The 64Mhz ARM
 // Cortex-M4 in the Nano 33 would not be able to keep up if we read each bit
 // one at a time from the various GPIO pins and combined them into a byte.
 // Instead, we chose specific GPIO pins which all occupy a single GPIO "PORT"

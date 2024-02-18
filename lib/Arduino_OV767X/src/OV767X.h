@@ -33,12 +33,6 @@ enum
 
 enum
 {
-  OV7670 = 0,
-  OV7675 = 1
-};
-
-enum
-{
   VGA = 0,  // 640x480
   CIF = 1,  // 352x240
   QVGA = 2, // 320x240
@@ -52,8 +46,7 @@ public:
   OV767X();
   virtual ~OV767X();
 
-  // Supported FPS: 1, 5, 10, 15, 30
-  int begin(int resolution, int format, int fps, int camera_name = OV7670); 
+  int begin(int resolution, int format, int fps); // Supported FPS: 1, 5, 10, 15, 30
   void end();
 
   // must be called after Camera.begin():

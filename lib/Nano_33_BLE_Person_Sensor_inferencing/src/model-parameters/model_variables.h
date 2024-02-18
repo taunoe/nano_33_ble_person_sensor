@@ -62,6 +62,7 @@ const ei_config_tflite_eon_graph_t ei_config_tflite_graph_5 = {
 
 const ei_learning_block_config_tflite_graph_t ei_learning_block_config_5 = {
     .implementation_version = 1,
+    .classification_mode = EI_CLASSIFIER_CLASSIFICATION_MODE_CLASSIFICATION,
     .block_id = 5,
     .object_detection = 0,
     .object_detection_last_layer = EI_CLASSIFIER_LAST_LAYER_UNKNOWN,
@@ -98,11 +99,11 @@ const ei_model_performance_calibration_t ei_calibration = {
     0   /* Don't use flags */
 };
 
-const ei_impulse_t impulse_348147_2 = {
+const ei_impulse_t impulse_348147_5 = {
     .project_id = 348147,
     .project_owner = "Tauno Erik",
     .project_name = "Nano 33 BLE Person Sensor",
-    .deploy_version = 2,
+    .deploy_version = 5,
 
     .nn_input_frame_size = 27648,
     .raw_sample_count = 9216,
@@ -141,6 +142,6 @@ const ei_impulse_t impulse_348147_2 = {
     .categories = ei_classifier_inferencing_categories
 };
 
-const ei_impulse_t& ei_default_impulse = impulse_348147_2;
+const ei_impulse_t& ei_default_impulse = impulse_348147_5;
 
 #endif // _EI_CLASSIFIER_MODEL_METADATA_H_

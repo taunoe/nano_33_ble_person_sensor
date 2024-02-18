@@ -1,11 +1,4 @@
-:repository-owner: arduino-libraries
-:repository-name: Arduino_OV767X
-
-= {repository-name} Library for Arduino =
-
-image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/check-arduino.yml/badge.svg["Check Arduino status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/check-arduino.yml"]
-image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/compile-examples.yml/badge.svg["Compile Examples status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/compile-examples.yml"]
-image:https://github.com/{repository-owner}/{repository-name}/actions/workflows/spell-check.yml/badge.svg["Spell Check status", link="https://github.com/{repository-owner}/{repository-name}/actions/workflows/spell-check.yml"]
+= OV767X Library for Arduino =
 
 Capture images from your OmniVision OV7670 camera in your Arduino sketches.
 
@@ -13,7 +6,7 @@ This library is based on https://www.kernel.org[Linux Kernel's] V4L2 driver for 
 
 == License ==
 
-Copyright (c) 2021 Arduino SA. All rights reserved.
+Copyright (c) 2020 Arduino SA. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; version 2.
 

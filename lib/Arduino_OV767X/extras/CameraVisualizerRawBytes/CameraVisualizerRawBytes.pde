@@ -17,23 +17,24 @@ Serial myPort;
 // must match resolution used in the sketch
 final int cameraWidth = 320;
 final int cameraHeight = 240;
+
 final int cameraBytesPerPixel = 2;
+
 final int bytesPerFrame = cameraWidth * cameraHeight * cameraBytesPerPixel;
 
 PImage myImage;
-byte[] frameBuffer = new byte[bytesPerFrame];
 
 void setup()
 {
   size(320, 240);
 
   // if you have only ONE serial port active
-  //myPort = new Serial(this, Serial.list()[0], 9600);          // if you have only ONE serial port active
+  //myPort = new Serial(this, Serial.list()[0], 9600); // if you have only ONE serial port active
 
   // if you know the serial port name
   //myPort = new Serial(this, "COM5", 9600);                    // Windows
-  //myPort = new Serial(this, "/dev/ttyACM0", 9600);            // Linux
-  myPort = new Serial(this, "/dev/cu.usbmodem14401", 9600);     // Mac
+  //myPort = new Serial(this, "/dev/ttyACM0", 9600);             // Linux
+  myPort = new Serial(this, "/dev/cu.usbmodem14101", 9600);  // Mac
 
   // wait for full frame of bytes
   myPort.buffer(bytesPerFrame);  
@@ -47,8 +48,13 @@ void draw()
 }
 
 void serialEvent(Serial myPort) {
+  byte[] frameBuffer = new byte[bytesPerFrame];
+
   // read the saw bytes in
   myPort.readBytes(frameBuffer);
+
+  // create image to set byte values
+  PImage img = createImage(cameraWidth, cameraHeight, RGB);
 
   // access raw bytes via byte buffer
   ByteBuffer bb = ByteBuffer.wrap(frameBuffer);
@@ -56,6 +62,7 @@ void serialEvent(Serial myPort) {
 
   int i = 0;
 
+  img.loadPixels();
   while (bb.hasRemaining()) {
     // read 16-bit pixel
     short p = bb.getShort();
@@ -66,8 +73,10 @@ void serialEvent(Serial myPort) {
     int b = ((p >> 0) & 0x1f) << 3;
 
     // set pixel color
-    myImage .pixels[i++] = color(r, g, b);
+    img.pixels[i++] = color(r, g, b);
   }
- myImage .updatePixels();
+  img.updatePixels();
 
+  // assign image for next draw
+  myImage = img;
 }

@@ -214,16 +214,16 @@ EI_IMPULSE_ERROR ei_run_nms(std::vector<ei_impulse_result_bounding_box_t> *resul
         bb_count++;
     }
 
-    float *boxes = (float*)malloc(4 * bb_count * sizeof(float));
-    float *scores = (float*)malloc(1 * bb_count * sizeof(float));
-    int *selected_indices = (int*)malloc(1 * bb_count * sizeof(int));
-    float *selected_scores = (float*)malloc(1 * bb_count * sizeof(float));
+    float *boxes = (float*)ei_malloc(4 * bb_count * sizeof(float));
+    float *scores = (float*)ei_malloc(1 * bb_count * sizeof(float));
+    int *selected_indices = (int*)ei_malloc(1 * bb_count * sizeof(int));
+    float *selected_scores = (float*)ei_malloc(1 * bb_count * sizeof(float));
 
     if (!scores || !boxes || !selected_indices || !selected_scores) {
-        free(boxes);
-        free(scores);
-        free(selected_indices);
-        free(selected_scores);
+        ei_free(boxes);
+        ei_free(scores);
+        ei_free(selected_indices);
+        ei_free(selected_scores);
         return EI_IMPULSE_OUT_OF_MEMORY;
     }
 
@@ -269,7 +269,7 @@ EI_IMPULSE_ERROR ei_run_nms(std::vector<ei_impulse_result_bounding_box_t> *resul
     for (size_t ix = 0; ix < (size_t)num_selected_indices; ix++) {
         auto bb = results->at(selected_indices[ix]);
 
-        printf("Found bb with label %s\n", bb.label);
+        ei_printf("Found bb with label %s\n", bb.label);
 
         ei_impulse_result_bounding_box_t r;
         r.label = bb.label;
@@ -287,10 +287,10 @@ EI_IMPULSE_ERROR ei_run_nms(std::vector<ei_impulse_result_bounding_box_t> *resul
         results->push_back(new_results[ix]);
     }
 
-    free(boxes);
-    free(scores);
-    free(selected_indices);
-    free(selected_scores);
+    ei_free(boxes);
+    ei_free(scores);
+    ei_free(selected_indices);
+    ei_free(selected_scores);
 
     return EI_IMPULSE_OK;
 }
